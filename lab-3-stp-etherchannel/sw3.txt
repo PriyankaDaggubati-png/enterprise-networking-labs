@@ -1,0 +1,37 @@
+hostname SW3
+!
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,20,30 priority 12288
+!
+vlan 10
+ name SALES
+!
+vlan 20
+ name HR
+!
+vlan 30
+ name GUEST
+!
+interface range GigabitEthernet0/0-1
+ description EtherChannel to SW2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ channel-group 2 mode active
+ no shutdown
+!
+interface GigabitEthernet0/2
+ description Link to SW1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ no shutdown
+!
+interface Port-channel2
+ description EtherChannel to SW2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ no shutdown
+!
+end
