@@ -1,0 +1,35 @@
+hostname R2
+!
+interface GigabitEthernet0/0
+ description Trunk to SW1
+ no ip address
+ no shutdown
+!
+interface GigabitEthernet0/0.10
+ description VLAN 10 gateway backup
+ encapsulation dot1Q 10
+ ip address 192.168.10.2 255.255.255.0
+ vrrp 10 ip 192.168.10.254
+ vrrp 10 priority 100
+ vrrp 10 preempt
+ no shutdown
+!
+interface GigabitEthernet0/0.20
+ description VLAN 20 gateway backup
+ encapsulation dot1Q 20
+ ip address 192.168.20.2 255.255.255.0
+ vrrp 20 ip 192.168.20.254
+ vrrp 20 priority 100
+ vrrp 20 preempt
+ no shutdown
+!
+interface GigabitEthernet0/0.30
+ description VLAN 30 gateway backup
+ encapsulation dot1Q 30
+ ip address 192.168.30.2 255.255.255.0
+ vrrp 30 ip 192.168.30.254
+ vrrp 30 priority 100
+ vrrp 30 preempt
+ no shutdown
+!
+end

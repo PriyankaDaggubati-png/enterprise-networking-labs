@@ -1,0 +1,36 @@
+hostname SW-CORE
+!
+ip routing
+!
+vlan 10
+ name SALES
+!
+vlan 20
+ name HR
+!
+vlan 30
+ name GUEST
+!
+interface Vlan10
+ description SVI gateway VLAN 10
+ ip address 192.168.10.3 255.255.255.0
+ no shutdown
+!
+interface Vlan20
+ description SVI gateway VLAN 20
+ ip address 192.168.20.3 255.255.255.0
+ no shutdown
+!
+interface Vlan30
+ description SVI gateway VLAN 30
+ ip address 192.168.30.3 255.255.255.0
+ no shutdown
+!
+interface GigabitEthernet0/0
+ description Downlink trunk to SW1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ no shutdown
+!
+end

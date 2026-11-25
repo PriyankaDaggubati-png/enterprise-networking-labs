@@ -1,0 +1,40 @@
+hostname SW1
+!
+vlan 10
+ name SALES
+!
+vlan 20
+ name HR
+!
+vlan 30
+ name GUEST
+!
+interface range GigabitEthernet0/0-1
+ description Trunk to R1 and R2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ no shutdown
+!
+interface range GigabitEthernet1/0-3
+ description Access ports VLAN 10
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ no shutdown
+!
+interface range GigabitEthernet1/4-7
+ description Access ports VLAN 20
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ no shutdown
+!
+interface range GigabitEthernet2/0-1
+ description Access ports VLAN 30
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast
+ no shutdown
+!
+end
