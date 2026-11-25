@@ -1,0 +1,35 @@
+hostname R2
+!
+interface Loopback0
+ ip address 2.2.2.2 255.255.255.255
+ no shutdown
+!
+interface GigabitEthernet0/0
+ description Link to R1 Area 0
+ ip address 10.0.12.2 255.255.255.252
+ no shutdown
+!
+interface GigabitEthernet0/1
+ description Link to R3 Area 1
+ ip address 10.0.23.2 255.255.255.252
+ no shutdown
+!
+interface GigabitEthernet0/2
+ description Link to R4 EIGRP
+ ip address 10.0.24.2 255.255.255.252
+ no shutdown
+!
+router ospf 1
+ router-id 2.2.2.2
+ network 10.0.12.0 0.0.0.3 area 0
+ network 10.0.23.0 0.0.0.3 area 1
+ network 2.2.2.2 0.0.0.0 area 0
+ redistribute eigrp 100 subnets
+!
+router eigrp 100
+ network 10.0.24.0 0.0.0.3
+ network 2.2.2.2 0.0.0.0
+ redistribute ospf 1 metric 10000 100 255 1 1500
+ no auto-summary
+!
+end
